@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TasteBox-Restaurant</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #222;
+        background: #222;
+        line-height: 1.6;
+      }
+
+      header {
+        background: #ffffff;
+        border-bottom: 1px solid #eeeeee;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav {
+        width: min(1100px, 90%);
+        margin: auto;
+        min-height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+      }
+      nav > a:first-child {
+        color: #e85d04;
+        font-size: 1.7rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      nav div {
+        display: flex;
+        gap: 30px;
+      }
+      nav div a {
+        color: #333;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: 0.3s ease;
+      }
+
+      nav div a:hover {
+        color: #e85d04;
+      }
+      nav > a:last-child:hover {
+        background: #c94d00;
+        color: white;
+        padding: 11px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.3s;
+      }
+
+      nav > a:last-child {
+        padding: 11px 20px;
+        border-radius: 8px;
+        background: #e85d04;
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      nav > a:last-child:hover {
+        background: #c94d00;
+      }
+
+      main > section:first-child {
+        min-height: 620px;
+        padding: 100px 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        background:
+          linear-gradient (rgba(0, 0, 0, 0.55)),
+          rgba(0, 0, 0, 0.55),
+          url("Image/hero.jpg") center/cover no-repeat;
+
+        color: white;
+      }
+
+      main > section:first-child p:first-child {
+        color: #ffb703;
+        font-size: 1rem;
+        font-weight: 800;
+        text-decoration: uppercase;
+        letter-spacing: 2px;
+      }
+
+      main > section:first-child h1 {
+        max-width: 750px;
+        margin: 15px 0;
+
+        font-size: clamp(2.8rem, 7vw, 5.5rem);
+        line-height: 1.05;
+      }
+
+      main > section:first-child p:nth-of-type(2) {
+        max-width: 550px;
+        margin-bottom: 30px;
+        font-size: 1.2rem;
+        color: #f1f1f1;
+      }
+
+      main > section:first-child a {
+        display: inline-block;
+        padding: 14px 25px;
+        background: #e85d04;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.3s;
+      }
+
+      main > section:first-child a:hover {
+        background: #ff7b22;
+        transition: translate(-2px);
+      }
+
+      main > section {
+        width: min(1100px, 90%);
+        margin: auto;
+        padding: 90px 0;
+      }
+
+      main > section h2 {
+        margin-bottom: 10px;
+        font-size: 2.4rem;
+        color: #222;
+      }
+
+      #about {
+        background: #241b16;
+        color: #fff8ef;
+        width: 100%;
+        max-width: none;
+        padding: 90px max(5%, calc((100% - 1100px) / 2));
+        text-align: center;
+      }
+
+      #about h2 {
+        color: #fff8ef;
+      }
+
+      #about p {
+        max-width: 650px;
+        margin: 0 auto;
+        color: #e4d4c7;
+        font-size: 1.08rem;
+      }
+
+      #menu {
+        scroll-margin-top: 90px;
+      }
+
+      section[id] {
+        scroll-margin-top: 90px;
+      }
+
+      nav div a {
+        position: relative;
+      }
+
+      nav div a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -8px;
+        height: 2px;
+        background: #e85d04;
+        transform: scaleX(0);
+        transition: transform 0.25s ease;
+      }
+
+      nav div a:hover::after,
+      nav div a.active::after {
+        transform: scaleX(1);
+      }
+
+      main > section > p {
+        color: #666;
+      }
+
+      #contact {
+        width: 100%;
+        max-width: none;
+        padding: 100px max(5%, calc((100% - 1100px) / 2));
+        background: #fff8ef;
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: 70px;
+        align-items: start;
+        position: relative;
+        overflow: hidden;
+      }
+      #contact h2 {
+        margin-bottom: 12px;
+        color: #241b16;
+        font-size: clamp(2.2rem, 4vw, 3.5rem);
+        line-height: 1.05;
+      }
+
+      #contact > div:first-child {
+        position: relative;
+        z-index: 1;
+      }
+
+      #contact > div:first-child > p:first-of-type {
+        color: #e85d04;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+
+      #contact > div:first-child > p:nth-of-type(2) {
+        color: #75685f;
+        font-size: 1.05rem;
+        margin-bottom: 30px;
+      }
+
+      .contact-details {
+        display: grid;
+        gap: 12px;
+      }
+
+      .contact-details p {
+        margin: 0;
+        padding: 15px 18px;
+        border-left: 3px solid #ffb703;
+        background: white;
+        color: #4a3b32;
+        box-shadow: 0 8px 22px rgba(72, 42, 20, 0.06);
+      }
+
+      .contact-details strong {
+        display: block;
+        color: #241b16;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 3px;
+      }
+
+      #contact form {
+        width: 100%;
+        min-width: 0;
+        max-width: 650px;
+        margin: 0;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #241b16;
+        border-radius: 14px;
+        box-shadow: 0 20px 45px rgba(72, 42, 20, 0.16);
+        position: relative;
+        z-index: 1;
+      }
+
+      #contact form label {
+        color: #f8e9dc;
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-top: 7px;
+      }
+
+      #contact form > label:first-child {
+        margin-top: 0;
+      }
+
+      #contact input,
+      #contact textarea {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #d8c9bc;
+        border-radius: 7px;
+        background: #fffdfb;
+        color: #241b16;
+        font: inherit;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      #contact input:focus,
+      #contact textarea:focus {
+        border-color: #ffb703;
+        box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.18);
+      }
+
+      #contact textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      #contact button {
+        width: fit-content;
+        margin-top: 15px;
+        padding: 13px 25px;
+        border: none;
+        border-radius: 7px;
+        background: #ffb703;
+        color: #241b16;
+        font-size: 1rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #contact button:hover {
+        background: #ffd166;
+        transform: translateY(-2px);
+      }
+
+      #contact::after {
+        content: "";
+        width: 260px;
+        height: 260px;
+        position: absolute;
+        right: -100px;
+        top: -100px;
+        border: 35px solid rgba(232, 93, 4, 0.08);
+        border-radius: 50%;
+      }
+
+      main > section:nth-of-type(3) {
+        max-width: 1100px;
+      }
+
+      main > section:nth-of-type(3) > article {
+        width: calc(33.333% - 24px);
+        margin: 35px 12px;
+        display: inline-block;
+        vertical-align: top;
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0.8px 25px rgba(0, 0, 0, 0.08);
+        transition: 0.3;
+      }
+
+      main > section:nth-of-type(3) > article:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      }
+
+      article img {
+        width: 100%;
+        height: 230px;
+        display: block;
+        object-fit: cover;
+      }
+
+      article h3 {
+        margin: 20px 20px 8px;
+        font-size: 1.4rem;
+      }
+
+      article p {
+        margin: 0 20px 15px;
+        color: #666;
+      }
+
+      article strong {
+        display: block;
+        margin: 0 20px 20px;
+        color: #e85d04;
+        font-size: 1.2rem;
+      }
+
+      article button {
+        margin: 0 20px 25px;
+        padding: 11px 18px;
+        border: none;
+        border-radius: 7px;
+        background: #222;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      article button:hover {
+        background: #e85d04;
+      }
+
+      main img {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      footer {
+        padding: 30px 5%;
+        color: #aaa;
+        background: #181818;
+        text-align: center;
+      }
+
+      footer p {
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          flex-wrap: wrap;
+          padding: 18px 0;
+          gap: 15px;
+        }
+
+        nav div {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+          gap: 20px;
+        }
+
+        nav > a:last-child {
+          padding: 9px 14px;
+          font-size: 0.9rem;
+        }
+
+        main > section:first-child {
+          min-height: 550px;
+          padding: 80px 5%;
+        }
+
+        main > section:first-child h1 {
+          font-size: 3rem;
+        }
+
+        main > section:nth-of-type(3) > article {
+          width: 100%;
+          margin: 35px 0;
+        }
+
+        #contact {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        #contact form {
+          max-width: none;
+        }
+      }
+
+      @media (max-width: 500px) {
+        nav div {
+          gap: 12px;
+        }
+
+        nav div a {
+          font-size: 0.9rem;
+        }
+
+        main > section:first-child h1 {
+          font-size: 2.5rem;
+        }
+
+        main > section {
+          padding: 60px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#home">TasteBox</a>
+        <div>
+          <a class="active" href="#home">Home</a>
+          <a href="#menu">Menu</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="../Login.Html">Login</a>
+          <a href="../register.html">Register</a>
+        </div>
+
+        <a href="#menu">Order Now</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home">
+        <p>Welcome to Chigozie</p>
+        <h1>Delicious food made for you</h1>
+        <p>Fresh meal, Bold Flavour, and Fast delivery</p>
+        <a href="#menu"> Explore menu </a>
+      </section>
+
+      <section id="about">
+        <h2>Good food. Good mood.</h2>
+        <p>
+          At TasteBox, we make fresh, satisfying meals with bold Nigerian
+          flavour and a modern touch. Every order is prepared with care and
+          delivered while it is still delicious...
+        </p>
+      </section>
+
+      <section id="contact">
+        <div>
+          <p>Get in touch</p>
+          <h2>Let's make your next meal memorable.</h2>
+          <p>We would love to hear from you.</p>
+
+          <div class="contact-details">
+            <p><strong>Call us</strong>07069914400</p>
+            <p><strong>Email us</strong>Frblessing41@gmail.com</p>
+            <p><strong>Visit us</strong>123 Tastebox Street, Lagos, Nigeria</p>
+          </div>
+        </div>
+
+        <form>
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+          />
+
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+          />
+
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Enter your message"
+          >
+          </textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+
+      <section id="menu">
+        <h3>Our popular Dishes</h3>
+        <p>Discover some of our customer Favourite</p>
+        <article>
+          <img src="Burger.jpg" alt="Classic beef burger" />
+
+          <h3>Classic Burger</h3>
+
+          <p>Chigozie</p>
+          <p>Juicy beef burger with fresh vegetable</p>
+
+          <strong> ₦8,500 </strong>
+
+          <button>Add to Cart</button>
+        </article>
+
+        <article>
+          <img src="Pizza.jpg" alt="Pizza" />
+          <h3>Pepperoni Pizza</h3>
+
+          <p>Fresh pizza with mazarella and pepperoni</p>
+
+          <strong> ₦15,00 </strong>
+
+          <button>Add to Cart</button>
+        </article>
+        <article>
+          <img src="chicken.jpg" alt="Chicken" />
+
+          <h3>Crispy Chicken</h3>
+          <p>Golden crispy chicken served with fries</p>
+          <strong> ₦20,000 </strong>
+          <button>Add to cart</button>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 TasteBox Restaurant. Made fresh for you</p>
+    </footer>
+
+    <script>
+      const navigationLinks = document.querySelectorAll("nav div a");
+      const pageSections = document.querySelectorAll("main section[id]");
+
+      const updateActiveLink = (sectionId) => {
+        navigationLinks.forEach((link) => {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === `#${sectionId}`,
+          );
+        });
+      };
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              updateActiveLink(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: "-35% 0px -55% 0px" },
+      );
+
+      pageSections.forEach((section) => sectionObserver.observe(section));
+    </script>
+  </body>
+</html>
