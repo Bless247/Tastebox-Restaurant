@@ -820,8 +820,8 @@
         </div>
 
         <div class="nav-right">
-          <a href="../Login.Html">Login</a>
-          <a href="../register.html">Register</a>
+          <a href="Login.Html">Login</a>
+          <a href="register.html">Register</a>
           <button class="cart-badge" type="button" id="open-cart">
             Cart <span id="cart-count">0</span>
           </button>
@@ -895,7 +895,10 @@
             </div>
           </div>
 
-          <form>
+          <form action="https://formsubmit.co/blchigozie24@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New TasteBox contact message" />
+            <input type="hidden" name="_next" value="https://bless247.github.io/Tastebox-Restaurant/" />
+            <input type="hidden" name="_captcha" value="false" />
             <label for="name">Name</label>
             <input
               type="text"
@@ -1178,6 +1181,13 @@
           "Sunrise Breakfast": 10000,
         };
 
+        const savedCart = JSON.parse(localStorage.getItem("tastebox-cart") || "[]");
+        savedCart.forEach((item) => {
+          if (item && item.name && typeof item.quantity === "number") {
+            cart.push(item);
+          }
+        });
+
         const updateCartPanel = () => {
           cartItemList.innerHTML = "";
 
@@ -1185,6 +1195,7 @@
             cartItemList.innerHTML =
               '<div class="cart-item"><div><strong>Your cart is empty</strong><span>Add a meal to continue</span></div><small>₦0</small></div>';
             document.getElementById("cart-total").textContent = "Total: ₦0";
+            cartCount.textContent = "0";
             return;
           }
 
@@ -1192,22 +1203,27 @@
           cart.forEach((item) => {
             total += item.price * item.quantity;
             cartItemList.innerHTML += `
-            <div class="cart-item">
-              <div>
-                <strong>${item.name}</strong>
-                <span>${item.quantity} item${item.quantity === 1 ? "" : "s"}</span>
+              <div class="cart-item">
+                <div>
+                  <strong>${item.name}</strong>
+                  <span>${item.quantity} item${item.quantity === 1 ? "" : "s"}</span>
+                </div>
+                <div class="cart-item-actions">
+                  <button class="quantity-button" type="button" data-action="decrease" data-name="${item.name}" aria-label="Decrease ${item.name} quantity">−</button>
+                  <small>₦${(item.price * item.quantity).toLocaleString()}</small>
+                  <button class="quantity-button" type="button" data-action="increase" data-name="${item.name}" aria-label="Increase ${item.name} quantity">+</button>
+                  <button class="remove-item" type="button" data-action="remove" data-name="${item.name}">Remove</button>
+                </div>
               </div>
-              <div class="cart-item-actions">
-                <button class="quantity-button" type="button" data-action="decrease" data-name="${item.name}" aria-label="Decrease ${item.name} quantity">−</button>
-                <small>₦${(item.price * item.quantity).toLocaleString()}</small>
-                <button class="quantity-button" type="button" data-action="increase" data-name="${item.name}" aria-label="Increase ${item.name} quantity">+</button>
-                <button class="remove-item" type="button" data-action="remove" data-name="${item.name}">Remove</button>
-              </div>
-            </div>
-          `;
+            `;
           });
+
           document.getElementById("cart-total").textContent = `Total: ₦${total.toLocaleString()}`;
+          cartCount.textContent = cart.reduce((sum, product) => sum + product.quantity, 0);
         };
+
+        cartCount.textContent = cart.reduce((sum, product) => sum + product.quantity, 0);
+        updateCartPanel();
 
         const updateActiveLink = (sectionId) => {
           navigationLinks.forEach((link) => {

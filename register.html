@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create account | TasteBox</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4efe9;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        color: #241b16;
+      }
+      main {
+        width: min(420px, 100%);
+        background: #fff;
+        padding: 32px;
+        border-radius: 14px;
+        box-shadow: 0 16px 35px #2c1b1318;
+      }
+      h1 {
+        color: #e85d04;
+      }
+      form {
+        display: grid;
+        gap: 10px;
+      }
+      label {
+        font-weight: 700;
+        margin-top: 8px;
+      }
+      input,
+      button {
+        font: inherit;
+        padding: 12px;
+        border-radius: 7px;
+      }
+      input {
+        border: 1px solid #d8c9bc;
+      }
+      button {
+        border: 0;
+        background: #e85d04;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 12px;
+      }
+      a {
+        color: #e85d04;
+        font-weight: 700;
+      }
+      .message {
+        min-height: 24px;
+        font-weight: 700;
+      }
+      .error {
+        color: #b91c1c;
+      }
+      .success {
+        color: #15803d;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Create your account</h1>
+      <p>Register for a TasteBox account.</p>
+      <form id="registerForm">
+        <label for="name">Full name</label
+        ><input id="name" type="text" required />
+        <label for="email">Email address</label
+        ><input id="email" type="email" required />
+        <label for="password">Password</label
+        ><input id="password" type="password" minlength="6" required />
+        <label for="confirmPassword">Confirm password</label
+        ><input id="confirmPassword" type="password" minlength="6" required />
+        <button type="submit">Register</button>
+        <p id="message" class="message" role="alert"></p>
+      </form>
+      <p>Already registered? <a href="Login.Html">Sign in</a></p>
+      <p><a href="index.html">Back to menu</a></p>
+    </main>
+    <script>
+      document
+        .querySelector("#registerForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const name = document.querySelector("#name").value.trim();
+          const email = document
+            .querySelector("#email")
+            .value.trim()
+            .toLowerCase();
+          const password = document.querySelector("#password").value;
+          const confirmPassword =
+            document.querySelector("#confirmPassword").value;
+          const message = document.querySelector("#message");
+          const users = JSON.parse(
+            localStorage.getItem("tasteboxUsers") || "[]",
+          );
+          if (password !== confirmPassword) {
+            message.textContent = "Passwords do not match.";
+            message.className = "message error";
+            return;
+          }
+          if (users.some((account) => account.email === email)) {
+            message.textContent = "That email is already registered.";
+            message.className = "message error";
+            return;
+          }
+          users.push({ name, email, password });
+          localStorage.setItem("tasteboxUsers", JSON.stringify(users));
+          message.textContent = "Account created. Redirecting to sign in...";
+          message.className = "message success";
+          setTimeout(() => {
+            window.location.href = "Login.Html";
+          }, 700);
+        });
+    </script>
+  </body>
+</html>

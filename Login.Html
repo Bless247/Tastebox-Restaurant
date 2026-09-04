@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in | TasteBox</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4efe9;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        color: #241b16;
+      }
+      main {
+        width: min(420px, 100%);
+        background: #fff;
+        padding: 32px;
+        border-radius: 14px;
+        box-shadow: 0 16px 35px #2c1b1318;
+      }
+      h1 {
+        color: #e85d04;
+      }
+      form {
+        display: grid;
+        gap: 10px;
+      }
+      label {
+        font-weight: 700;
+        margin-top: 8px;
+      }
+      input,
+      button {
+        font: inherit;
+        padding: 12px;
+        border-radius: 7px;
+      }
+      input {
+        border: 1px solid #d8c9bc;
+      }
+      button {
+        border: 0;
+        background: #e85d04;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 12px;
+      }
+      a {
+        color: #e85d04;
+        font-weight: 700;
+      }
+      .message {
+        min-height: 24px;
+        font-weight: 700;
+      }
+      .error {
+        color: #b91c1c;
+      }
+      .success {
+        color: #15803d;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Welcome back</h1>
+      <p>Sign in to continue to TasteBox.</p>
+      <form id="loginForm">
+        <label for="email">Email address</label
+        ><input id="email" type="email" required />
+        <label for="password">Password</label
+        ><input id="password" type="password" required />
+        <button type="submit">Sign in</button>
+        <p id="message" class="message" role="alert"></p>
+      </form>
+      <p>New to TasteBox? <a href="register.html">Create an account</a></p>
+      <p><a href="index.html">Back to menu</a></p>
+    </main>
+    <script>
+      document
+        .querySelector("#loginForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const email = document
+            .querySelector("#email")
+            .value.trim()
+            .toLowerCase();
+          const password = document.querySelector("#password").value;
+          const users = JSON.parse(
+            localStorage.getItem("tasteboxUsers") || "[]",
+          );
+          const user = users.find(
+            (account) =>
+              account.email === email && account.password === password,
+          );
+          const message = document.querySelector("#message");
+          if (!user) {
+            message.textContent = "Incorrect email or password.";
+            message.className = "message error";
+            return;
+          }
+          localStorage.setItem(
+            "tasteboxCurrentUser",
+            JSON.stringify({ name: user.name, email: user.email }),
+          );
+          message.textContent = "Signed in successfully.";
+          message.className = "message success";
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 500);
+        });
+    </script>
+  </body>
+</html>
