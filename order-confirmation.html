@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmed | TasteBox</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        background: #f4efe9;
+      }
+      .confirmation {
+        width: min(560px, 90%);
+        margin: 90px auto;
+        padding: 40px;
+        text-align: center;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 16px 35px rgba(44, 27, 19, 0.1);
+      }
+      .confirmation h1 {
+        color: #241b16;
+        margin-bottom: 12px;
+      }
+      .confirmation p {
+        color: #6a5247;
+        margin: 10px 0;
+      }
+      .order-number {
+        color: #e85d04;
+        font-size: 1.4rem;
+        font-weight: 800;
+      }
+      a {
+        display: inline-block;
+        margin: 24px 8px 0;
+        padding: 13px 18px;
+        border-radius: 8px;
+        background: #e85d04;
+        color: white;
+        font-weight: 800;
+        text-decoration: none;
+      }
+      a.secondary {
+        background: #241b16;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="confirmation">
+      <h1>Order placed successfully</h1>
+      <p>
+        Thank you, <strong id="customer-name">customer</strong>. Your meal is
+        being prepared.
+      </p>
+      <p class="order-number" id="order-number"></p>
+      <p>Estimated delivery time: 35–45 minutes</p>
+      <a href="track-order.html">Track order</a>
+      <a class="secondary" href="TasteBox.html">Back to menu</a>
+    </main>
+    <script>
+      const order = JSON.parse(
+        localStorage.getItem("tastebox-order") || "null",
+      );
+      if (order) {
+        document.getElementById("customer-name").textContent = order.name;
+        document.getElementById("order-number").textContent =
+          `Order number: ${order.number}`;
+      }
+    </script>
+  </body>
+</html>

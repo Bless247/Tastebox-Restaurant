@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, 
+    initial-scale=1.0"
+    />
     <title>TasteBox-Restaurant</title>
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -18,8 +22,9 @@
       body {
         font-family: Arial, Helvetica, sans-serif;
         color: #222;
-        background: #222;
+        background: #f4efe9;
         line-height: 1.6;
+        min-height: 100vh;
       }
 
       header {
@@ -36,18 +41,41 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 30px;
+        gap: 22px;
+        padding: 8px 0;
       }
       nav > a:first-child {
         color: #e85d04;
         font-size: 1.7rem;
         font-weight: 800;
         text-decoration: none;
+        display: inline-block;
+        animation: tasteBoxFloat 2.8s ease-in-out infinite alternate;
+      }
+
+      @keyframes tasteBoxFloat {
+        0% {
+          transform: translateY(0) scale(1);
+          text-shadow: 0 0 0 rgba(232, 93, 4, 0.2);
+        }
+        50% {
+          transform: translateY(-5px) scale(1.04);
+          text-shadow: 0 8px 18px rgba(232, 93, 4, 0.35);
+        }
+        100% {
+          transform: translateY(2px) scale(1);
+          text-shadow: 0 0 0 rgba(232, 93, 4, 0.2);
+        }
       }
 
       nav div {
         display: flex;
         gap: 30px;
+        align-items: center;
+      }
+
+      .nav-right {
+        gap: 18px;
       }
       nav div a {
         color: #333;
@@ -79,40 +107,70 @@
         font-weight: 700;
       }
 
-      nav > a:last-child:hover {
-        background: #c94d00;
+      .cart-badge {
+        border: none;
+        background: #fff5ed;
+        color: #241b16;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(232, 93, 4, 0.12);
+        transition: transform 0.2s ease;
+      }
+
+      .cart-badge:hover {
+        transform: translateY(-2px);
+      }
+
+      .cart-badge span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #e85d04;
+        color: white;
+        font-size: 0.8rem;
       }
 
       main > section:first-child {
         min-height: 620px;
         padding: 100px 5%;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        gap: 40px;
+        background:
+          linear-gradient(135deg, rgba(26, 17, 13, 0.88), rgba(85, 52, 37, 0.8)),
+          url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+        color: white;
+      }
+
+      .hero-copy {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: flex-start;
-
-        background:
-          linear-gradient (rgba(0, 0, 0, 0.55)),
-          rgba(0, 0, 0, 0.55),
-          url("Image/hero.jpg") center/cover no-repeat;
-
-        color: white;
       }
 
       main > section:first-child p:first-child {
         color: #ffb703;
         font-size: 1rem;
         font-weight: 800;
-        text-decoration: uppercase;
+        text-transform: uppercase;
         letter-spacing: 2px;
       }
 
       main > section:first-child h1 {
         max-width: 750px;
         margin: 15px 0;
-
         font-size: clamp(2.8rem, 7vw, 5.5rem);
-        line-height: 1.05;
+        line-height: 0.94;
+        letter-spacing: -0.06em;
       }
 
       main > section:first-child p:nth-of-type(2) {
@@ -122,20 +180,116 @@
         color: #f1f1f1;
       }
 
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
       main > section:first-child a {
         display: inline-block;
         padding: 14px 25px;
         background: #e85d04;
         color: white;
-        border-radius: 8px;
+        border-radius: 12px;
         text-decoration: none;
         font-weight: 700;
         transition: 0.3s;
       }
 
+      .secondary-btn {
+        display: inline-block;
+        padding: 14px 25px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
       main > section:first-child a:hover {
         background: #ff7b22;
-        transition: translate(-2px);
+        transform: translateY(-2px);
+      }
+
+      .hero-app-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(8px);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        width: min(100%, 360px);
+        justify-self: center;
+      }
+
+      .hero-app-card:hover {
+        transform: translateY(-3px);
+        transition: transform 0.3s ease;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        background: rgba(255, 183, 3, 0.2);
+        color: #ffdd8d;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .order-preview {
+        margin-top: 20px;
+        background: rgba(15, 11, 9, 0.4);
+        border-radius: 18px;
+        padding: 18px;
+      }
+
+      .order-preview h3 {
+        font-size: 1.1rem;
+        margin-bottom: 14px;
+      }
+
+      .mini-order-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .mini-order-item:last-child {
+        border-bottom: none;
+      }
+
+      .mini-order-item strong {
+        display: block;
+      }
+
+      .mini-order-item span {
+        color: #ffd88a;
+        font-size: 0.9rem;
+      }
+
+      .mini-order-price {
+        font-size: 1rem;
+        font-weight: 800;
+      }
+
+      .app-cta {
+        margin-top: 18px;
+        width: 100%;
+        border: none;
+        background: #ffb703;
+        color: #20140d;
+        font-weight: 800;
+        padding: 13px 16px;
+        border-radius: 12px;
+        cursor: pointer;
       }
 
       main > section {
@@ -349,21 +503,66 @@
         max-width: 1100px;
       }
 
-      main > section:nth-of-type(3) > article {
-        width: calc(33.333% - 24px);
-        margin: 35px 12px;
-        display: inline-block;
-        vertical-align: top;
-        background: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0.8px 25px rgba(0, 0, 0, 0.08);
-        transition: 0.3;
+      .menu-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin: 25px 0 30px;
+        flex-wrap: wrap;
       }
 
-      main > section:nth-of-type(3) > article:hover {
+      .category-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .category-pills button {
+        border: 1px solid #f3d7c3;
+        background: white;
+        color: #5e4034;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .category-pills button.active {
+        background: #e85d04;
+        border-color: #e85d04;
+        color: white;
+      }
+
+      #menu {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      #menu > h3 {
+        grid-column: 1 / -1;
+        margin-bottom: 0;
+      }
+
+      #menu > article {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 16px 35px rgba(44, 27, 19, 0.08);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        border: 1px solid #f5e7df;
+      }
+
+      #menu > article:hover {
         transform: translateY(-8px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 20px 40px rgba(44, 27, 19, 0.12);
       }
 
       article img {
@@ -383,6 +582,16 @@
         color: #666;
       }
 
+      .food-tag {
+        display: inline-block;
+        margin: 18px 20px 0;
+        color: #e85d04;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
       article strong {
         display: block;
         margin: 0 20px 20px;
@@ -394,7 +603,7 @@
         margin: 0 20px 25px;
         padding: 11px 18px;
         border: none;
-        border-radius: 7px;
+        border-radius: 12px;
         background: #222;
         color: white;
         font-weight: 700;
@@ -409,6 +618,121 @@
         width: 300px;
         height: 200px;
         object-fit: cover;
+      }
+
+      .cart-panel {
+        position: fixed;
+        inset: 0;
+        background: rgba(19, 14, 12, 0.56);
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 200;
+        padding: 20px;
+      }
+
+      .cart-panel.show {
+        display: flex;
+      }
+
+      .cart-sheet {
+        width: min(100%, 460px);
+        background: #fffaf7;
+        border-radius: 24px 24px 0 0;
+        padding: 20px 20px 30px;
+        box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.18);
+      }
+
+      .cart-sheet-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .cart-sheet-header h3 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+
+      .close-cart {
+        border: none;
+        background: #f5e7df;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      .cart-item-list {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        border: 1px solid #f0e2d8;
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .cart-item strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .cart-item span {
+        color: #6a5247;
+        font-size: 0.86rem;
+      }
+
+      .cart-item small {
+        font-weight: 800;
+        color: #e85d04;
+      }
+
+      .cart-item-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .quantity-button,
+      .remove-item {
+        border: none;
+        cursor: pointer;
+        font-weight: 800;
+      }
+
+      .quantity-button {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #f5e7df;
+        color: #241b16;
+      }
+
+      .remove-item {
+        background: transparent;
+        color: #a43d12;
+        font-size: 0.8rem;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        border: none;
+        background: #e85d04;
+        color: white;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 800;
+        padding: 14px 18px;
+        cursor: pointer;
       }
 
       footer {
@@ -493,139 +817,505 @@
           <a href="#menu">Menu</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
-          <a href="../Login.Html">Login</a>
-          <a href="../register.html">Register</a>
         </div>
 
-        <a href="#menu">Order Now</a>
+        <div class="nav-right">
+          <a href="../Login.Html">Login</a>
+          <a href="../register.html">Register</a>
+          <button class="cart-badge" type="button" id="open-cart">
+            Cart <span id="cart-count">0</span>
+          </button>
+        </div>
       </nav>
     </header>
 
     <main>
-      <section id="home">
-        <p>Welcome to Chigozie</p>
-        <h1>Delicious food made for you</h1>
-        <p>Fresh meal, Bold Flavour, and Fast delivery</p>
-        <a href="#menu"> Explore menu </a>
-      </section>
-
-      <section id="about">
-        <h2>Good food. Good mood.</h2>
-        <p>
-          At TasteBox, we make fresh, satisfying meals with bold Nigerian
-          flavour and a modern touch. Every order is prepared with care and
-          delivered while it is still delicious...
-        </p>
-      </section>
-
-      <section id="contact">
-        <div>
-          <p>Get in touch</p>
-          <h2>Let's make your next meal memorable.</h2>
-          <p>We would love to hear from you.</p>
-
-          <div class="contact-details">
-            <p><strong>Call us</strong>07069914400</p>
-            <p><strong>Email us</strong>Frblessing41@gmail.com</p>
-            <p><strong>Visit us</strong>123 Tastebox Street, Lagos, Nigeria</p>
+        <section id="home">
+          <div class="hero-copy">
+            <p>Welcome to TasteBox</p>
+            <h1>Delicious food made for you</h1>
+            <p>Fresh meal, Bold Flavour, and Fast delivery</p>
+            <div class="hero-actions">
+              <a href="#menu">Explore menu</a>
+              <a class="secondary-btn" href="#contact">Track order</a>
+            </div>
           </div>
+
+          <div class="hero-app-card">
+            <span class="status-pill">Live order</span>
+            <div class="order-preview">
+              <h3>Popular today</h3>
+              <div class="mini-order-item">
+                <div>
+                  <strong>Classic Burger</strong>
+                  <span>Beef + cheese</span>
+                </div>
+                <div class="mini-order-price">₦8,500</div>
+              </div>
+              <div class="mini-order-item">
+                <div>
+                  <strong>Pizza</strong>
+                  <span>Extra pepperoni</span>
+                </div>
+                <div class="mini-order-price">₦15,000</div>
+              </div>
+              <div class="mini-order-item">
+                <div>
+                  <strong>Chicken</strong>
+                  <span>Large combo</span>
+                </div>
+                <div class="mini-order-price">₦20,000</div>
+              </div>
+            </div>
+            <button class="app-cta" type="button">Place order</button>
+          </div>
+        </section>
+
+        <section id="about">
+          <h2>Good food. Good mood.</h2>
+          <p>
+            At TasteBox, we make fresh, satisfying meals with bold Nigerian
+            flavour and a modern touch. Every order is prepared with care and
+            delivered while it is still delicious...
+          </p>
+        </section>
+
+        <section id="contact">
+          <div>
+            <p>Get in touch</p>
+            <h2>Let's make your next meal memorable.</h2>
+            <p>We would love to hear from you.</p>
+
+            <div class="contact-details">
+              <p><strong>Call us</strong>07069914400</p>
+              <p><strong>Email us</strong>Frblessing41@gmail.com</p>
+              <p>
+                <strong>Visit us</strong>123 Tastebox Street, Lagos, Nigeria
+              </p>
+            </div>
+          </div>
+
+          <form>
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+            />
+
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+            />
+
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Enter your message"
+            >
+            </textarea>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </section>
+
+        <section id="menu">
+          <h3>Our popular Dishes</h3>
+          <div class="menu-toolbar">
+            <p>Discover some of our customer Favourite</p>
+            <div class="category-pills">
+              <button class="active" type="button">All</button>
+              <button type="button">Burgers</button>
+              <button type="button">Pizza</button>
+              <button type="button">Chicken</button>
+            </div>
+          </div>
+
+          <article>
+            <img src="Burger.jpg" alt="Classic beef burger" />
+            <span class="food-tag">Best seller</span>
+            <h3>Classic Burger</h3>
+            <p>Juicy beef burger with fresh vegetable</p>
+            <strong> ₦8,500 </strong>
+            <button class="add-to-cart" type="button">Add to Cart</button>
+          </article>
+
+          <article>
+            <img src="Pizza.jpg" alt="Pizza" />
+            <span class="food-tag">Popular</span>
+            <h3>Pepperoni Pizza</h3>
+            <p>Fresh pizza with mozzarella and pepperoni</p>
+            <strong> ₦15,000 </strong>
+            <button class="add-to-cart" type="button">Add to Cart</button>
+          </article>
+
+          <article>
+            <img src="chicken.jpg" alt="Chicken" />
+            <span class="food-tag">Family meal</span>
+            <h3>Crispy Chicken</h3>
+            <p>Golden crispy chicken served with fries</p>
+            <strong> ₦20,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img
+              src="jollof-rice.jpg"
+              alt="Jollof rice with chicken"
+            />
+            <span class="food-tag">Nigerian favourite</span>
+            <h3>Jollof Rice Combo</h3>
+            <p>Smoky jollof rice with grilled chicken and plantain</p>
+            <strong> ₦12,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img
+              src="grilled-fish.jpg"
+              alt="Grilled fish with vegetables"
+            />
+            <span class="food-tag">Chef's choice</span>
+            <h3>Grilled Fish Dinner</h3>
+            <p>Seasoned grilled fish served with fresh vegetables</p>
+            <strong> ₦18,500 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img
+              src="chicken-shawarma.jpg"
+              alt="Chicken shawarma wrap"
+            />
+            <span class="food-tag">Quick bite</span>
+            <h3>Chicken Shawarma</h3>
+            <p>Warm flatbread filled with chicken, vegetables, and sauce</p>
+            <strong> ₦7,500 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img
+              src="beef-meat-pie.jpg"
+              alt="Golden meat pies"
+            />
+            <span class="food-tag">Snack</span>
+            <h3>Beef Meat Pie</h3>
+            <p>Flaky pastry filled with seasoned beef and vegetables</p>
+            <strong> ₦4,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img
+              src="chocolate-dessert.jpg"
+              alt="Chocolate dessert"
+            />
+            <span class="food-tag">Sweet treat</span>
+            <h3>Chocolate Dessert</h3>
+            <p>Rich chocolate dessert for the perfect finish</p>
+            <strong> ₦6,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img
+              src="fruit-smoothie.jpg"
+              alt="Fresh fruit smoothie"
+            />
+            <span class="food-tag">Cold drink</span>
+            <h3>Fresh Fruit Smoothie</h3>
+            <p>A refreshing blend of seasonal fruits and yoghurt</p>
+            <strong> ₦5,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="fried-rice.jpg" alt="Fried rice with vegetables" />
+            <span class="food-tag">Rice bowl</span>
+            <h3>Special Fried Rice</h3>
+            <p>Colourful fried rice with vegetables and tender chicken</p>
+            <strong> ₦13,500 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="chicken-pasta.jpg" alt="Creamy pasta dish" />
+            <span class="food-tag">Italian special</span>
+            <h3>Creamy Chicken Pasta</h3>
+            <p>Silky pasta with chicken, herbs, and creamy sauce</p>
+            <strong> ₦14,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="garden-salad.jpg" alt="Vegetable salad bowl" />
+            <span class="food-tag">Healthy choice</span>
+            <h3>Garden Salad Bowl</h3>
+            <p>Fresh greens, vegetables, avocado, and house dressing</p>
+            <strong> ₦8,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="double-cheeseburger.jpg" alt="Double cheeseburger" />
+            <span class="food-tag">Big bite</span>
+            <h3>Double Cheeseburger</h3>
+            <p>Two beef patties, melted cheese, and crispy onions</p>
+            <strong> ₦12,500 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="loaded-fries.jpg" alt="French fries with sauce" />
+            <span class="food-tag">Side dish</span>
+            <h3>Loaded French Fries</h3>
+            <p>Crispy fries topped with cheese, sauce, and spring onions</p>
+            <strong> ₦6,500 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="grilled-steak.jpg" alt="Grilled steak with vegetables" />
+            <span class="food-tag">Premium meal</span>
+            <h3>Grilled Steak Plate</h3>
+            <p>Juicy grilled steak with vegetables and pepper sauce</p>
+            <strong> ₦25,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="garlic-prawns.jpg" alt="Grilled prawns" />
+            <span class="food-tag">Seafood</span>
+            <h3>Garlic Grilled Prawns</h3>
+            <p>Juicy prawns grilled with garlic, herbs, and lemon</p>
+            <strong> ₦22,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="strawberry-cheesecake.jpg" alt="Strawberry cheesecake" />
+            <span class="food-tag">Dessert</span>
+            <h3>Strawberry Cheesecake</h3>
+            <p>Soft cheesecake topped with fresh strawberry sauce</p>
+            <strong> ₦7,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="fruit-juice.jpg" alt="Cold fruit juice" />
+            <span class="food-tag">Fresh drink</span>
+            <h3>Fresh Fruit Juice</h3>
+            <p>Chilled natural fruit juice with no added preservatives</p>
+            <strong> ₦4,500 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+
+          <article>
+            <img src="sunrise-breakfast.jpg" alt="Egg breakfast with toast" />
+            <span class="food-tag">Breakfast</span>
+            <h3>Sunrise Breakfast</h3>
+            <p>Eggs, toast, sausages, and fresh tomatoes to start your day</p>
+            <strong> ₦10,000 </strong>
+            <button class="add-to-cart" type="button">Add to cart</button>
+          </article>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2026 TasteBox Restaurant. Made fresh for you</p>
+      </footer>
+
+      <div class="cart-panel" id="cart-panel" aria-hidden="true">
+        <div class="cart-sheet">
+          <div class="cart-sheet-header">
+            <h3>Your Order</h3>
+            <button class="close-cart" id="close-cart" type="button">×</button>
+          </div>
+          <div class="cart-item-list" id="cart-item-list"></div>
+          <strong id="cart-total">Total: ₦0</strong>
+          <button class="checkout-btn" id="checkout-button" type="button">Checkout</button>
         </div>
+      </div>
 
-        <form>
-          <label for="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Enter your name"
-          />
+      <script>
+        const navigationLinks = document.querySelectorAll("nav div a");
+        const pageSections = document.querySelectorAll("main section[id]");
+        const cartCount = document.getElementById("cart-count");
+        const addToCartButtons = document.querySelectorAll(".add-to-cart");
+        const cartPanel = document.getElementById("cart-panel");
+        const closeCart = document.getElementById("close-cart");
+        const openCart = document.getElementById("open-cart");
+        const cartItemList = document.getElementById("cart-item-list");
+        const appCta = document.querySelector(".app-cta");
+        const checkoutButton = document.getElementById("checkout-button");
 
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your email"
-          />
+        const cart = [];
+        const menuItems = {
+          "Classic Burger": 8500,
+          "Pepperoni Pizza": 15000,
+          "Crispy Chicken": 20000,
+          "Jollof Rice Combo": 12000,
+          "Grilled Fish Dinner": 18500,
+          "Chicken Shawarma": 7500,
+          "Beef Meat Pie": 4000,
+          "Chocolate Dessert": 6000,
+          "Fresh Fruit Smoothie": 5000,
+          "Special Fried Rice": 13500,
+          "Creamy Chicken Pasta": 14000,
+          "Garden Salad Bowl": 8000,
+          "Double Cheeseburger": 12500,
+          "Loaded French Fries": 6500,
+          "Grilled Steak Plate": 25000,
+          "Garlic Grilled Prawns": 22000,
+          "Strawberry Cheesecake": 7000,
+          "Fresh Fruit Juice": 4500,
+          "Sunrise Breakfast": 10000,
+        };
 
-          <label for="message">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Enter your message"
-          >
-          </textarea>
+        const updateCartPanel = () => {
+          cartItemList.innerHTML = "";
 
-          <button type="submit">Send Message</button>
-        </form>
-      </section>
+          if (cart.length === 0) {
+            cartItemList.innerHTML =
+              '<div class="cart-item"><div><strong>Your cart is empty</strong><span>Add a meal to continue</span></div><small>₦0</small></div>';
+            document.getElementById("cart-total").textContent = "Total: ₦0";
+            return;
+          }
 
-      <section id="menu">
-        <h3>Our popular Dishes</h3>
-        <p>Discover some of our customer Favourite</p>
-        <article>
-          <img src="Burger.jpg" alt="Classic beef burger" />
-
-          <h3>Classic Burger</h3>
-
-          <p>Chigozie</p>
-          <p>Juicy beef burger with fresh vegetable</p>
-
-          <strong> ₦8,500 </strong>
-
-          <button>Add to Cart</button>
-        </article>
-
-        <article>
-          <img src="Pizza.jpg" alt="Pizza" />
-          <h3>Pepperoni Pizza</h3>
-
-          <p>Fresh pizza with mazarella and pepperoni</p>
-
-          <strong> ₦15,00 </strong>
-
-          <button>Add to Cart</button>
-        </article>
-        <article>
-          <img src="chicken.jpg" alt="Chicken" />
-
-          <h3>Crispy Chicken</h3>
-          <p>Golden crispy chicken served with fries</p>
-          <strong> ₦20,000 </strong>
-          <button>Add to cart</button>
-        </article>
-      </section>
-    </main>
-
-    <footer>
-      <p>&copy; 2026 TasteBox Restaurant. Made fresh for you</p>
-    </footer>
-
-    <script>
-      const navigationLinks = document.querySelectorAll("nav div a");
-      const pageSections = document.querySelectorAll("main section[id]");
-
-      const updateActiveLink = (sectionId) => {
-        navigationLinks.forEach((link) => {
-          link.classList.toggle(
-            "active",
-            link.getAttribute("href") === `#${sectionId}`,
-          );
-        });
-      };
-
-      const sectionObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              updateActiveLink(entry.target.id);
-            }
+          let total = 0;
+          cart.forEach((item) => {
+            total += item.price * item.quantity;
+            cartItemList.innerHTML += `
+            <div class="cart-item">
+              <div>
+                <strong>${item.name}</strong>
+                <span>${item.quantity} item${item.quantity === 1 ? "" : "s"}</span>
+              </div>
+              <div class="cart-item-actions">
+                <button class="quantity-button" type="button" data-action="decrease" data-name="${item.name}" aria-label="Decrease ${item.name} quantity">−</button>
+                <small>₦${(item.price * item.quantity).toLocaleString()}</small>
+                <button class="quantity-button" type="button" data-action="increase" data-name="${item.name}" aria-label="Increase ${item.name} quantity">+</button>
+                <button class="remove-item" type="button" data-action="remove" data-name="${item.name}">Remove</button>
+              </div>
+            </div>
+          `;
           });
-        },
-        { rootMargin: "-35% 0px -55% 0px" },
-      );
+          document.getElementById("cart-total").textContent = `Total: ₦${total.toLocaleString()}`;
+        };
 
-      pageSections.forEach((section) => sectionObserver.observe(section));
-    </script>
+        const updateActiveLink = (sectionId) => {
+          navigationLinks.forEach((link) => {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href") === `#${sectionId}`,
+            );
+          });
+        };
+
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                updateActiveLink(entry.target.id);
+              }
+            });
+          },
+          { rootMargin: "-35% 0px -55% 0px" },
+        );
+
+        pageSections.forEach((section) => sectionObserver.observe(section));
+
+        addToCartButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const name = button.closest("article").querySelector("h3").textContent;
+            const item = cart.find((product) => product.name === name);
+            if (item) {
+              item.quantity += 1;
+            } else {
+              cart.push({ name, price: menuItems[name], quantity: 1 });
+            }
+            cartCount.textContent = cart.reduce((sum, product) => sum + product.quantity, 0);
+            localStorage.setItem("tastebox-cart", JSON.stringify(cart));
+            button.textContent = "Added";
+            updateCartPanel();
+          });
+        });
+
+          cartItemList.addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-action]");
+
+            if (!button) {
+              return;
+            }
+
+            const itemIndex = cart.findIndex(
+              (item) => item.name === button.dataset.name,
+            );
+
+            if (itemIndex === -1) {
+              return;
+            }
+
+            const item = cart[itemIndex];
+
+            if (button.dataset.action === "increase") {
+              item.quantity += 1;
+            } else if (button.dataset.action === "decrease") {
+              item.quantity -= 1;
+            } else if (button.dataset.action === "remove" || item.quantity <= 0) {
+              cart.splice(itemIndex, 1);
+            }
+
+            cartCount.textContent = cart.reduce(
+              (sum, product) => sum + product.quantity,
+              0,
+            );
+            localStorage.setItem("tastebox-cart", JSON.stringify(cart));
+            updateCartPanel();
+          });
+
+        checkoutButton.addEventListener("click", () => {
+          if (cart.length === 0) {
+            alert("Please add a meal to your cart before checking out.");
+            return;
+          }
+
+          localStorage.setItem("tastebox-cart", JSON.stringify(cart));
+          window.location.href = "checkout.html";
+        });
+
+        appCta.addEventListener("click", () => {
+          if (cart.length === 0) {
+            alert("Please add a meal to your cart before placing an order.");
+            return;
+          }
+          cartPanel.classList.add("show");
+          cartPanel.setAttribute("aria-hidden", "false");
+        });
+
+        openCart.addEventListener("click", () => {
+          cartPanel.classList.add("show");
+          cartPanel.setAttribute("aria-hidden", "false");
+        });
+
+        closeCart.addEventListener("click", () => {
+          cartPanel.classList.remove("show");
+          cartPanel.setAttribute("aria-hidden", "true");
+        });
+
+        cartPanel.addEventListener("click", (event) => {
+          if (event.target === cartPanel) {
+            cartPanel.classList.remove("show");
+            cartPanel.setAttribute("aria-hidden", "true");
+          }
+        });
+      </script>
+    </div>
   </body>
 </html>

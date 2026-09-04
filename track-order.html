@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Order TasteBox</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        background: #f4efe9;
+      }
+      .tracking {
+        width: min(620px, 90%);
+        margin: 70px auto;
+        padding: 34px;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 16px 35px rgba(44, 27, 19, 0.1);
+      }
+      h1 {
+        color: #241b16;
+        margin-bottom: 8px;
+      }
+      .intro {
+        color: #6a5247;
+        margin-bottom: 24px;
+      }
+      .status {
+        display: grid;
+        gap: 12px;
+        margin: 24px 0;
+      }
+      .status p {
+        margin: 0;
+        padding: 15px;
+        border-left: 4px solid #d8c9bc;
+        background: #fff8ef;
+        color: #6a5247;
+        font-weight: 700;
+      }
+      .status p.current {
+        border-color: #e85d04;
+        color: #241b16;
+      }
+      .order-number {
+        color: #e85d04;
+        font-weight: 800;
+      }
+      a {
+        color: #e85d04;
+        font-weight: 700;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="tracking">
+      <a href="TasteBox.html">← Back to TasteBox</a>
+      <h1>Track your order</h1>
+      <p class="intro">Follow your meal from our kitchen to your door</p>
+      <p class="order-number" id="order-number">No recent order found.</p>
+      <div class="status">
+        <p class="current">✓ Order received</p>
+        <p>2. Preparing your food</p>
+        <p>3. Out for delivery</p>
+        <p>4. Delivered</p>
+      </div>
+    </main>
+    <script>
+      const order = JSON.parse(
+        localStorage.getItem("tastebox-order") || "null",
+      );
+      if (order) {
+        document.getElementById("order-number").textContent =
+          `Tracking order ${order.number}`;
+      }
+    </script>
+  </body>
+</html>

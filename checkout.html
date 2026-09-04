@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | TasteBox</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        background: #f4efe9;
+      }
+      .checkout-page {
+        width: min(1000px, 90%);
+        margin: 50px auto;
+        display: grid;
+        grid-template-columns: 1fr 0.8fr;
+        gap: 28px;
+      }
+      .checkout-card {
+        background: white;
+        border-radius: 14px;
+        padding: 30px;
+        box-shadow: 0 16px 35px rgba(44, 27, 19, 0.08);
+      }
+      h1,
+      h2 {
+        color: #241b16;
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin: 14px 0 6px;
+        font-weight: 700;
+        color: #4a3b32;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #d8c9bc;
+        border-radius: 7px;
+        font: inherit;
+      }
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+      .order-summary {
+        background: #241b16;
+        color: white;
+      }
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 13px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .summary-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 22px;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #ffb703;
+      }
+      button {
+        width: 100%;
+        margin-top: 22px;
+        border: 0;
+        border-radius: 8px;
+        padding: 14px;
+        background: #e85d04;
+        color: white;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .back-link {
+        color: #e85d04;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      @media (max-width: 700px) {
+        .checkout-page {
+          grid-template-columns: 1fr;
+          margin: 25px auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="checkout-page">
+      <section class="checkout-card">
+        <a class="back-link" href="TasteBox.html">← Back to menu</a>
+        <h1>Complete your order</h1>
+        <form id="checkout-form">
+          <label for="customer-name">Full name</label>
+          <input id="customer-name" required />
+          <label for="phone">Phone number</label>
+          <input id="phone" type="tel" required />
+          <label for="address">Delivery address</label>
+          <textarea id="address" required></textarea>
+          <label for="payment">Payment method</label>
+          <select id="payment">
+            <option>Cash on delivery</option>
+            <option>Card payment</option>
+            <option>Bank transfer</option>
+          </select>
+          <button type="submit">Place order</button>
+        </form>
+      </section>
+      <aside class="checkout-card order-summary">
+        <h2>Your order</h2>
+        <div id="summary-items"></div>
+        <div class="summary-total">
+          <span>Total</span><span id="summary-total">₦0</span>
+        </div>
+      </aside>
+    </main>
+    <script>
+      const cart = JSON.parse(localStorage.getItem("tastebox-cart") || "[]");
+      const summaryItems = document.getElementById("summary-items");
+      const summaryTotal = document.getElementById("summary-total");
+      let total = 0;
+      cart.forEach((item) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        summaryItems.innerHTML += `<div class="summary-item"><span>${item.name} × ${item.quantity}</span><strong>₦${itemTotal.toLocaleString()}</strong></div>`;
+      });
+      summaryTotal.textContent = `₦${total.toLocaleString()}`;
+      document
+        .getElementById("checkout-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const order = {
+            number: `TB-${Date.now().toString().slice(-6)}`,
+            name: document.getElementById("customer-name").value,
+            total,
+            status: "Order received",
+          };
+          localStorage.setItem("tastebox-order", JSON.stringify(order));
+          localStorage.removeItem("tastebox-cart");
+          window.location.href = "order-confirmation.html";
+        });
+    </script>
+  </body>
+</html>
